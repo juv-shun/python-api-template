@@ -1,5 +1,5 @@
 # resource "aws_alb" "load_balancer" {
-#   name = var.system_name
+#   name = var.server_name
 #   security_groups = [
 #     var.default_security_group,
 #     aws_security_group.http_sg.id
@@ -11,13 +11,13 @@
 
 #   access_logs {
 #     bucket  = var.access_logs_bucket
-#     prefix  = var.system_name
+#     prefix  = var.server_name
 #     enabled = true
 #   }
 # }
 
 resource "aws_alb_target_group" "target_group" {
-  name                 = var.system_name
+  name                 = var.server_name
   port                 = "80"
   protocol             = "HTTP"
   target_type          = "ip"

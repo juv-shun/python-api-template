@@ -1,4 +1,4 @@
-variable "system_name" {}
+variable "server_name" {}
 variable "vpc_id" {}
 variable "subnet" {}
 variable "access_logs_bucket" {}

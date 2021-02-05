@@ -2,13 +2,13 @@
 # EC2Role
 #####################################
 resource "aws_iam_role" "instance_role" {
-  name               = "${var.system_name}-instance-role"
+  name               = "${var.server_name}-instance-role"
   path               = "/"
   assume_role_policy = data.aws_iam_policy_document.instance_assume_policy.json
 }
 
 resource "aws_iam_instance_profile" "instance_profile" {
-  name = "${var.system_name}-instance-profile"
+  name = "${var.server_name}-instance-profile"
   path = "/"
   role = aws_iam_role.instance_role.id
 }
@@ -33,7 +33,7 @@ data "aws_iam_policy_document" "instance_assume_policy" {
 # TaskExecutionRole
 #####################################
 resource "aws_iam_role" "task_exe_role" {
-  name               = "${var.system_name}-task-exe-role"
+  name               = "${var.server_name}-task-exe-role"
   path               = "/"
   assume_role_policy = data.aws_iam_policy_document.ecs_assume_policy.json
 }
@@ -58,7 +58,7 @@ data "aws_iam_policy_document" "ecs_assume_policy" {
 # TaskRole
 #####################################
 resource "aws_iam_role" "task_role" {
-  name               = "${var.system_name}-task-role"
+  name               = "${var.server_name}-task-role"
   path               = "/"
   assume_role_policy = data.aws_iam_policy_document.ecs_assume_policy.json
 }

@@ -44,7 +44,7 @@ data "terraform_remote_state" "s3" {
 
 module "trial" {
   source      = "./module/"
-  system_name = "trial"
+  server_name = "fukusumi-trial"
   vpc_id      = data.terraform_remote_state.network.outputs.aws_vpc_subnet_ids["vpc"]
   subnet = {
     az1 = data.terraform_remote_state.network.outputs.aws_vpc_subnet_ids["public_subnet_az1"]

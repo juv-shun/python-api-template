@@ -1,5 +1,5 @@
 resource "aws_security_group" "http_sg" {
-  name        = "${var.system_name}-http-sg"
+  name        = "${var.server_name}-http-sg"
   description = "Allow HTTP inbound traffic"
   vpc_id      = var.vpc_id
 
@@ -25,6 +25,6 @@ resource "aws_security_group" "http_sg" {
   }
 
   tags = {
-    Name = "[${var.system_name}] http"
+    Name = "[${var.server_name}] http"
   }
 }

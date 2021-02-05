@@ -1,5 +1,5 @@
 resource "aws_autoscaling_group" "autoscaling-group" {
-  name             = var.system_name
+  name             = var.server_name
   max_size         = var.autoscaling_config["max_instance_size"]
   min_size         = var.autoscaling_config["min_instance_size"]
   desired_capacity = var.autoscaling_config["desired_capacity"]
@@ -11,13 +11,13 @@ resource "aws_autoscaling_group" "autoscaling-group" {
   health_check_type    = "ELB"
   tag {
     key                 = "Name"
-    value               = var.system_name
+    value               = var.server_name
     propagate_at_launch = true
   }
 }
 
 resource "aws_launch_configuration" "launch_configuration" {
-  name                 = var.system_name
+  name                 = var.server_name
   image_id             = var.ec2_config["image_id"]
   instance_type        = var.ec2_config["instance_type"]
   iam_instance_profile = aws_iam_instance_profile.instance_profile.id

@@ -62,30 +62,3 @@ resource "aws_iam_role" "task_role" {
   path               = "/"
   assume_role_policy = data.aws_iam_policy_document.ecs_assume_policy.json
 }
-resource "aws_iam_policy" "put_logs_to_firehose" {
-  name = "EcsAccessKinesisFirehose-${var.system_name}"
-
-  policy = <<EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "AllowAccessToS3BucketForSegmentationPush",
-            "Effect": "Allow",
-            "Action": [
-              "firehose:PutRecordBatch"
-            ],
-            "Resource": [
-               "${aws_kinesis_firehose_delivery_stream.extended_s3_stream.arn}"
-            ]
-        }
-    ]
-}
-EOF
-
-}
-
-resource "aws_iam_role_policy_attachment" "attach_task_policy_put_log_firehose" {
-  role       = aws_iam_role.task_role.name
-  policy_arn = aws_iam_policy.put_logs_to_firehose.arn
-}

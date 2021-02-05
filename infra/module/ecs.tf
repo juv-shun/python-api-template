@@ -25,7 +25,71 @@ resource "aws_ecr_lifecycle_policy" "ecr_lifecycle" {
 EOF
 }
 
-
 resource "aws_ecs_cluster" "cluster" {
   name = var.server_name
+}
+
+resource "aws_ecs_service" "service" {
+  name                               = var.server_name
+  cluster                            = aws_ecs_cluster.cluster.arn
+  task_definition                    = aws_ecs_task_definition.task_def_dummy.family
+  desired_count                      = 0
+  launch_type                        = "EC2"
+  deployment_maximum_percent         = 100
+  deployment_minimum_healthy_percent = 50
+  health_check_grace_period_seconds  = 30
+
+  deployment_controller {
+    type = "CODE_DEPLOY"
+  }
+
+  load_balancer {
+    container_name   = var.lb_target_container
+    container_port   = 80
+    target_group_arn = aws_alb_target_group.target_group_blue.arn
+  }
+
+  network_configuration {
+    security_groups = [var.default_security_group]
+    subnets = [
+      var.subnet["az1"],
+      var.subnet["az2"]
+    ]
+  }
+
+  lifecycle {
+    ignore_changes = [desired_count, load_balancer, task_definition]
+  }
+}
+
+resource "aws_ecs_task_definition" "task_def_dummy" {
+  family                   = var.server_name
+  cpu                      = 256
+  memory                   = 512
+  execution_role_arn       = aws_iam_role.task_exe_role.arn
+  network_mode             = "awsvpc"
+  container_definitions    = jsonencode(local.task_def)
+  tags                     = {}
+  requires_compatibilities = ["FARGATE"]
+
+  lifecycle {
+    ignore_changes = [cpu, memory, execution_role_arn, network_mode, tags, container_definitions, tags, requires_compatibilities]
+  }
+}
+
+locals {
+  task_def = [
+    {
+      "portMappings" : [
+        {
+          "hostPort" : 80,
+          "protocol" : "tcp",
+          "containerPort" : 80
+        }
+      ],
+      "image" : "dummy",
+      "essential" : true,
+      "name" : var.lb_target_container,
+    }
+  ]
 }

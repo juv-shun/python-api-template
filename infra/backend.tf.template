@@ -63,5 +63,6 @@ module "trial" {
     image_id      = "ami-0763fff45988661c8"
     instance_type = "t2.micro"
   }
-  key_pair = data.terraform_remote_state.security.outputs.general_key_pair
+  key_pair            = data.terraform_remote_state.security.outputs.general_key_pair
+  lb_target_container = "app"
 }

@@ -8,3 +8,4 @@ variable "default_security_group" {}
 variable "autoscaling_config" {}
 variable "ec2_config" {}
 variable "key_pair" {}
+variable "lb_target_container" {}

@@ -30,14 +30,13 @@ resource "aws_ecs_cluster" "cluster" {
 }
 
 resource "aws_ecs_service" "service" {
-  name                               = var.server_name
-  cluster                            = aws_ecs_cluster.cluster.arn
-  task_definition                    = aws_ecs_task_definition.task_def_dummy.family
-  desired_count                      = 0
-  launch_type                        = "EC2"
-  deployment_maximum_percent         = 100
-  deployment_minimum_healthy_percent = 50
-  health_check_grace_period_seconds  = 30
+  name                              = var.server_name
+  cluster                           = aws_ecs_cluster.cluster.arn
+  task_definition                   = aws_ecs_task_definition.task_def_dummy.family
+  desired_count                     = 0
+  launch_type                       = "FARGATE"
+  platform_version                  = "1.4.0"
+  health_check_grace_period_seconds = 30
 
   deployment_controller {
     type = "CODE_DEPLOY"

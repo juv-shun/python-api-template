@@ -55,13 +55,13 @@ resource "aws_alb_listener" "listener_80" {
   }
 }
 
-resource "aws_alb_listener" "listener_8008" {
+resource "aws_alb_listener" "listener_8080" {
   load_balancer_arn = aws_alb.load_balancer.arn
-  port              = 8008
+  port              = 8080
   protocol          = "HTTP"
 
   default_action {
-    target_group_arn = aws_alb_target_group.target_group_blue.arn
+    target_group_arn = aws_alb_target_group.target_group_green.arn
     type             = "forward"
   }
 
@@ -89,46 +89,8 @@ resource "aws_alb_target_group" "target_group_blue" {
   }
 }
 
-resource "aws_lb_target_group" "target_group_green" {
+resource "aws_alb_target_group" "target_group_green" {
   name                 = "${var.server_name}-target-green"
-  port                 = 80
-  protocol             = "HTTP"
-  target_type          = "ip"
-  vpc_id               = var.vpc_id
-  deregistration_delay = 90
-
-  health_check {
-    healthy_threshold   = 2
-    unhealthy_threshold = 4
-    interval            = 30
-    matcher             = 200
-    path                = "/heartbeat"
-    protocol            = "HTTP"
-    timeout             = 5
-  }
-}
-
-resource "aws_alb_target_group" "target_group_test_blue" {
-  name                 = "${var.server_name}-target-test-blue"
-  port                 = 80
-  protocol             = "HTTP"
-  target_type          = "ip"
-  vpc_id               = var.vpc_id
-  deregistration_delay = 90
-
-  health_check {
-    healthy_threshold   = 2
-    unhealthy_threshold = 4
-    interval            = 30
-    matcher             = 200
-    path                = "/heartbeat"
-    protocol            = "HTTP"
-    timeout             = 5
-  }
-}
-
-resource "aws_lb_target_group" "target_group_test_green" {
-  name                 = "${var.server_name}-target-test-green"
   port                 = 80
   protocol             = "HTTP"
   target_type          = "ip"

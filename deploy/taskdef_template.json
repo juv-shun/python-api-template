@@ -1,0 +1,60 @@
+{
+  "family": "fukusumi-trial",
+  "taskRoleArn": "${TASK_ROLE_ARN}",
+  "executionRoleArn": "${TASK_EXE_ROLE_ARN}",
+  "networkMode": "awsvpc",
+  "cpu": "${CPU_SIZE}",
+  "memory": "${MEMORY_SIZE}",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "containerDefinitions": [
+    {
+      "name": "app",
+      "image": "${AWS_ACCOUNT_ID}.dkr.ecr.ap-northeast-1.amazonaws.com/${APPLICATION_NAME}:${IMAGE_TAG}",
+      "essential": true,
+      "environment": [
+        {
+          "name": "DB_HOST",
+          "value": "${DB_HOST}"
+        },
+        {
+          "name": "DB_USER",
+          "value": "${DB_USER}"
+        },
+        {
+          "name": "DB_PASSWORD",
+          "value": "${DB_PASSWORD}"
+        },
+        {
+          "name": "DB_NAME",
+          "value": "${DB_NAME}"
+        },
+        {
+          "name": "LOG_LEVEL",
+          "value": "error"
+        },
+        {
+          "name": "APP_LOG_LEVEL",
+          "value": "${APP_LOG_LEVEL}"
+        }
+      ],
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "protocol": "tcp",
+          "containerPort": 80
+        }
+      ],
+      "mountPoints": [],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/${APPLICATION_NAME}",
+          "awslogs-region": "ap-northeast-1",
+          "awslogs-stream-prefix": "app"
+        }
+      }
+    }
+  ]
+}

@@ -4,3 +4,4 @@
 __pycache__
 local_db/data
 infra/application/backend.tf
+deploy/env.sh

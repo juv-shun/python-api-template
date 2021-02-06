@@ -1,0 +1,53 @@
+terraform {
+  required_version = ">= 0.12"
+
+  backend "s3" {
+    bucket = "iridge-fukusumi-terraform-tfstate"
+    key    = "trial-api-server-db/tfstate.tf"
+    region = "ap-northeast-1"
+  }
+}
+
+provider "aws" {
+  region = "ap-northeast-1"
+}
+
+data "terraform_remote_state" "network" {
+  backend = "s3"
+
+  config = {
+    bucket = "iridge-fukusumi-terraform-tfstate"
+    key    = "foundation/network/tfstate.tf"
+    region = "ap-northeast-1"
+  }
+}
+
+data "terraform_remote_state" "security" {
+  backend = "s3"
+
+  config = {
+    bucket = "iridge-fukusumi-terraform-tfstate"
+    key    = "foundation/security/tfstate.tf"
+    region = "ap-northeast-1"
+  }
+}
+
+module "trial" {
+  source  = "./module/"
+  db_name = "fukusumi-trial"
+  rds_settings = {
+    allocated_storage = 20
+    instance_class    = "db.t3.micro"
+    multi_az          = false
+    database_username = "fukusumi"
+    db_name           = "fukusumi"
+    database_password = var.db_password
+  }
+  subnet = {
+    az1 = data.terraform_remote_state.network.outputs.aws_vpc_subnet_ids["public_subnet_az1"]
+    az2 = data.terraform_remote_state.network.outputs.aws_vpc_subnet_ids["public_subnet_az2"]
+  }
+  security_group_id = data.terraform_remote_state.security.outputs.security_group_ids["default"]
+}
+
+variable db_password {}

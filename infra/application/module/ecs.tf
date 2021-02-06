@@ -120,3 +120,8 @@ resource "aws_iam_role" "task_role" {
   path               = "/"
   assume_role_policy = data.aws_iam_policy_document.ecs_assume_policy.json
 }
+
+resource "aws_cloudwatch_log_group" "log_group" {
+  name              = "/ecs/${var.server_name}"
+  retention_in_days = 30
+}

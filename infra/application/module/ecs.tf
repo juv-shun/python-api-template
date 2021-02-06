@@ -35,7 +35,7 @@ resource "aws_ecs_service" "service" {
   task_definition                   = aws_ecs_task_definition.task_def_dummy.family
   desired_count                     = 0
   launch_type                       = "FARGATE"
-  platform_version                  = "1.4.0"
+  platform_version                  = "1.3.0"
   health_check_grace_period_seconds = 30
 
   deployment_controller {

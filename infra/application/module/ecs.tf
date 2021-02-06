@@ -54,6 +54,7 @@ resource "aws_ecs_service" "service" {
       var.subnet["az1"],
       var.subnet["az2"]
     ]
+    assign_public_ip = true
   }
 
   lifecycle {

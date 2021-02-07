@@ -3,6 +3,7 @@ variable "vpc_id" {}
 variable "subnet" {}
 variable "access_logs_bucket" {}
 variable "application_logs_bucket" {}
+variable "application_log_access_policy" {}
 variable "certificate_arn" {}
 variable "default_security_group" {}
 variable "ec2_config" {}

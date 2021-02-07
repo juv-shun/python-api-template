@@ -2,6 +2,7 @@ export APPLICATION_NAME=
 
 export AWS_ACCOUNT_ID=
 export IMAGE_TAG=
+export APPLICATION_LOG_BUCKET=
 
 export CPU_SIZE=256
 export MEMORY_SIZE=512

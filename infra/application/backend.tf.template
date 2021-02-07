@@ -54,10 +54,5 @@ module "trial" {
   application_logs_bucket = data.terraform_remote_state.s3.outputs.fundamental_bucket["application_logs"]
   certificate_arn         = ""
   default_security_group  = data.terraform_remote_state.security.outputs.security_group_ids["default"]
-  ec2_config = {
-    image_id      = "ami-0763fff45988661c8"
-    instance_type = "t2.micro"
-  }
-  key_pair            = data.terraform_remote_state.security.outputs.general_key_pair
   lb_target_container = "app"
 }

@@ -2,7 +2,7 @@ terraform {
   required_version = ">= 0.12"
 
   backend "s3" {
-    bucket = "iridge-fukusumi-terraform-tfstate"
+    bucket = ""
     key    = "trial-api-server-db/tfstate.tf"
     region = "ap-northeast-1"
   }
@@ -16,7 +16,7 @@ data "terraform_remote_state" "network" {
   backend = "s3"
 
   config = {
-    bucket = "iridge-fukusumi-terraform-tfstate"
+    bucket = ""
     key    = "foundation/network/tfstate.tf"
     region = "ap-northeast-1"
   }
@@ -26,7 +26,7 @@ data "terraform_remote_state" "security" {
   backend = "s3"
 
   config = {
-    bucket = "iridge-fukusumi-terraform-tfstate"
+    bucket = ""
     key    = "foundation/security/tfstate.tf"
     region = "ap-northeast-1"
   }

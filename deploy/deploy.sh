@@ -1,4 +1,5 @@
 #!/bin/bash -e
+set -e
 
 # Set environment variables
 source $(cd $(dirname $0); pwd)/env.sh

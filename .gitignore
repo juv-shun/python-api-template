@@ -4,4 +4,3 @@
 __pycache__
 local_db/data
 infra/*/main.tf
-deploy/env.sh

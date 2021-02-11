@@ -8,12 +8,16 @@ flake8 = "*"
 flake8-import-order = "*"
 mypy = "*"
 autopep8 = "*"
+pytest = "*"
+pytest-mock = "*"
+pytest-asyncio = "*"
 
 [packages]
 uvicorn = "*"
 fastapi = "*"
 python-json-logger = "*"
 aiomysql = "*"
+requests = "*"
 
 [requires]
 python_version = "3.8"

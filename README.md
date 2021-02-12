@@ -8,4 +8,4 @@ ECSを使ったAPIサーバのテンプレートプロジェクト。
 * デプロイは、CodeDeployを使った Blue/Green デプロイメントで行う。
 * アプリケーションのログはfirelensを使って指定したS3バケットに送信される。
 * WIP: テストデプロイ時に、Lambdaで作ったnewmanスクリプトを実行し、APIのE2Eテストが行われる。
-* WIP: Autoscalingの設定により、サービスの数が変動する。
+* Autoscalingの設定により、サービスの数が変動する。

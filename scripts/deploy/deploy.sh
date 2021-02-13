@@ -2,20 +2,20 @@
 set -e
 
 ### Please set the following environment variables.
-export AWS_ACCOUNT_ID=
-export APPLICATION_NAME=
-export IMAGE_TAG=
-export CPU_SIZE=
-export MEMORY_SIZE=
-export TASK_ROLE_ARN=
-export TASK_EXE_ROLE_ARN=
-export ECS_DESIRED_COUNT=
-export DB_HOST=
-export DB_USER=
-export DB_PASSWORD=
-export DB_NAME=
-export APP_LOG_LEVEL=
-export APPLICATION_LOG_BUCKET=
+# export AWS_ACCOUNT_ID=
+# export APPLICATION_NAME=
+# export IMAGE_TAG=
+# export CPU_SIZE=
+# export MEMORY_SIZE=
+# export TASK_ROLE_ARN=
+# export TASK_EXE_ROLE_ARN=
+# export ECS_DESIRED_COUNT=
+# export DB_HOST=
+# export DB_USER=
+# export DB_PASSWORD=
+# export DB_NAME=
+# export APP_LOG_LEVEL=
+# export APPLICATION_LOG_BUCKET=
 
 current_dir=$(cd $(dirname $0); pwd)
 
